@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Movie tickets</title>
+  <script src="js/vue.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+
+  <div id="app-cin">
+
+    <div class="hall-places">
+
+      <div class="header">
+        Касса кинотеатра
+      </div>
+
+      <div v-for="rowItem in rowsList" class="row-places">
+        <div class="row-num">{{rowItem.nrRow}}</div>
+        <div class="flex-spacer"></div>
+
+        <!-- too many elements for conditional class binding -->
+        <!-- :class="['person-place', isSelectedPlace(rowItem.nrRow, placeNr) ? 'person-place-selected' : '' ]" -->
+
+        <div v-for="placeNr in rowItem.num"
+              :key="''+rowItem.nrRow+'-'+placeNr"
+              :ref="''+rowItem.nrRow+'-'+placeNr"
+              class="person-place"
+              v-on:click="placeClick($event, rowItem.nrRow, placeNr, rowItem.price)">
+          {{placeNr}}
+        </div>
+
+        <div class="flex-spacer"></div>
+        <div class="row-price">{{rowItem.price}}p.</div>
+      </div>
+
+    </div>
+
+    <div class="buy-panel">
+
+      <div v-if="!isPlaceSelected">
+        {{message}}
+      </div>
+
+      <div v-if="isPlaceSelected">
+        <div>
+          Ряд: {{slectedRow}}
+        </div>
+        <div>
+          Место: {{slectedPlace}}
+        </div>
+        <div>
+          Цена: {{slectedPrice}}
+        </div>
+
+        <button v-on:click="resumePlace">Отмена</button>
+        <button v-on:click="buyPlace">Купить</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
