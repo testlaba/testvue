@@ -25,8 +25,8 @@
         <!-- :class="['person-place', isSelectedPlace(rowItem.nrRow, placeNr) ? 'person-place-selected' : '' ]" -->
 
         <div v-for="placeNr in rowItem.num"
-              :key="''+rowItem.nrRow+'-'+placeNr"
-              :ref="''+rowItem.nrRow+'-'+placeNr"
+              :key="getPlaceAlias(rowItem.nrRow, placeNr)"
+              :ref="getPlaceAlias(rowItem.nrRow, placeNr)"
               class="person-place"
               v-on:click="placeClick($event, rowItem.nrRow, placeNr, rowItem.price)">
           {{placeNr}}
